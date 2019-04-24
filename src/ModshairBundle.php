@@ -8,7 +8,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace Chuckki\Modshair;
+namespace Chuckki\ModshairBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
