@@ -10,7 +10,7 @@
 
 namespace Chuckki\ModshairBundle\Tests;
 
-use Chuckki\ModshairBundle;
+use Chuckki\ModshairBundle\ModshairBundle;
 use PHPUnit\Framework\TestCase;
 
 class ModshairBundleTest extends TestCase
