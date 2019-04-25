@@ -3,7 +3,7 @@
 /*
  * This file is part of [package name].
  *
- * (c) John Doe
+ * (c) Dennis Esken
  *
  * @license LGPL-3.0-or-later
  */

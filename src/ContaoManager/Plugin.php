@@ -3,18 +3,18 @@
 /*
  * This file is part of [package name].
  *
- * (c) John Doe
+ * (c) Dennis Esken
  *
  * @license LGPL-3.0-or-later
  */
 
 namespace Chuckki\ModshairBundle\ContaoManager;
 
+use Chuckki\ModshairBundle\ModshairBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Chuckki\ModshairBundle\ModshairBundle;
 
 class Plugin implements BundlePluginInterface
 {
