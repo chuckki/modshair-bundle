@@ -27,10 +27,6 @@ $GLOBALS['TL_DCA'][$strName]['fields']['cssImage'] = array(
 			(
 				array('tl_content', 'setSingleSrcFlags')
 			),
-			'save_callback' => array
-			(
-				array('tl_content', 'storeFileMetaInformation')
-			),
 			'sql'                     => "binary(16) NULL"
 );
 
