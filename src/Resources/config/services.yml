@@ -7,3 +7,8 @@ services:
         Symfony\Component\DependencyInjection\ContainerAwareInterface:
             calls:
                 - ["setContainer", ["@service_container"]]
+
+    Chuckki\ModshairBundle\Controller\QRController:
+        arguments:
+            - "@contao.framework"
+        public: true

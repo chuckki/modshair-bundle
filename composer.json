@@ -1,5 +1,5 @@
 {
-    "name": "chuccki/modshair-bundle",
+    "name": "chuckki/modshair-bundle",
     "type": "contao-bundle",
     "description": "Addon for modshair website",
     "license": "LGPL-3.0-or-later",
@@ -10,8 +10,7 @@
     ],
     "require": {
         "php": "^5.6 || ^7.0",
-        "contao/core-bundle": "4.4.*",
-        "symfony/framework-bundle": "^3.3"
+        "endroid/qr-code-bundle": "^3.4"
     },
     "conflict": {
         "contao/core": "*",

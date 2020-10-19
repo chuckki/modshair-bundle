@@ -1,0 +1,4 @@
+chuckki_modshair:
+    resource: "@ModshairBundle/Controller/"
+    type:     annotation
+    prefix:   /
