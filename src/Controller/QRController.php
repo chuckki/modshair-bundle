@@ -6,7 +6,6 @@ namespace Chuckki\ModshairBundle\Controller;
 use Chuckki\ModshairBundle\Model\QRModel;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Endroid\QrCode\Factory\QrCodeFactory;
-use Endroid\QrCodeBundle\Response\QrCodeResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class QRController extends AbstractController
         $qrCodeFactory = new QrCodeFactory();
 
         $qrCode = $qrCodeFactory->create($url, ['size' => 200]);
-        $response = new QrCodeResponse($qrCode);
+        $response = new Response($qrCode->writeString(), Response::HTTP_OK, ['Content-Type' => $qrCode->getContentType()]);
         return $response;
     }
 
