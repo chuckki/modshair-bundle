@@ -10,7 +10,7 @@ $GLOBALS['TL_DCA'][$strName]['palettes']['slideshowelement'] = '
 {template_legend:hide},customTpl;
 {expert_legend:hide},cssID;';
 
-$GLOBALS['TL_DCA'][$strName]['subpalettes']['addImage'] = 'singleSRC,alt,size,imageUrl,fullsize';
+#$GLOBALS['TL_DCA'][$strName]['subpalettes']['addImage'] = 'singleSRC,alt,size,imageUrl,fullsize';
 
 $GLOBALS['TL_DCA'][$strName]['fields']['url']['eval']['mandatory'] = false;
 $GLOBALS['TL_DCA'][$strName]['fields']['titleText']['label'] = array('Link Text','angezeigter Text');
