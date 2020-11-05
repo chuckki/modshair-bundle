@@ -57,4 +57,23 @@ class QRController extends AbstractController
     }
 
 
+    /**
+     * @Route("/qr-statistic", name="qr-serve")
+     */
+    public function showStatisticAction()
+    {
+        $qrAccess = QRModel::findall();
+        $returnArray = [];
+        foreach ($qrAccess as $item) {
+            if(!array_key_exists($item->host,$returnArray)){
+                $returnArray[$item->host] = [ 'count' => 0];
+            }
+            $returnArray[$item->host]['count']++;
+
+        }
+        dump($returnArray);
+        die;
+
+    }
+
 }
