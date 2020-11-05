@@ -55,8 +55,7 @@ class QRController extends AbstractController
         return RedirectResponse::create($url);
 
     }
-
-
+    
     /**
      * @Route("/qr-statistic", name="qr-serve")
      */
@@ -69,11 +68,13 @@ class QRController extends AbstractController
                 $returnArray[$item->host] = [ 'count' => 0];
             }
             $returnArray[$item->host]['count']++;
-
         }
-        dump($returnArray);
-        die;
+        $returnValue = '';
+        foreach ($returnArray as $key => $item) {
+            $returnValue .= $key . '=' .$item['count'] . '<br>';
+        }
 
+        return new Response($returnValue);
     }
 
 }
