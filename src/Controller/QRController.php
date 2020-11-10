@@ -28,7 +28,6 @@ class QRController extends AbstractController
         $url = 'http://' . $host . '/qr/' . $url;
         $qrCodeFactory = new QrCodeFactory();
 
-        $qrCode = $qrCodeFactory->create($url, ['size' => 200]);
         $response = new Response($qrCode->writeString(), Response::HTTP_OK, ['Content-Type' => $qrCode->getContentType()]);
         return $response;
     }
