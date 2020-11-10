@@ -2,7 +2,6 @@
 
 namespace Chuckki\ModshairBundle\Controller;
 
-
 use Chuckki\ModshairBundle\Model\QRModel;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Endroid\QrCode\Factory\QrCodeFactory;
@@ -24,53 +23,67 @@ class QRController extends AbstractController
      */
     public function getAction($url = 'magazin'): Response
     {
-        $host = $_SERVER['HTTP_HOST'];
-        $url = 'http://' . $host . '/qr/' . $url;
-        $qrCodeFactory = new QrCodeFactory();
+        return $this->getQrPerSizeAction($url, 945);
+    }
 
-        $response = new Response($qrCode->writeString(), Response::HTTP_OK, ['Content-Type' => $qrCode->getContentType()]);
+    /**
+     * @Route("/qr/getsize/{size}/{url}", name="qr-get-with-size")
+     */
+    public function getQrPerSizeAction($url = 'magazin', $size = 945): Response
+    {
+        $host          = $_SERVER['HTTP_HOST'];
+        $schema        = $_SERVER['HTTPS'] ? 'https' : 'http';
+        $url           = $schema.'://'.$host.'/qr/'.$url;
+        $qrCodeFactory = new QrCodeFactory();
+        $qrCode        = $qrCodeFactory->create($url, ['size' => $size]);
+        $response      = new Response(
+            $qrCode->writeString(), Response::HTTP_OK, [
+                'Content-Type' => $qrCode->getContentType(),
+            ]
+        );
+
         return $response;
     }
+
 
     /**
      * @Route("/qr/{url}", name="qr-serve")
      */
     public function serveAction($url): Response
     {
-        if(empty($url)){
+        if (empty($url)) {
             return RedirectResponse::HTTP_NOT_FOUND;
         }
-
-        $url = '/' . $url . '.html';
-
-        $log = new QRModel();
+        $url         = '/'.$url.'.html';
+        $log         = new QRModel();
         $log->access = (new \DateTime())->format('Y-m-d h:m:s');
-        $log->host = $_SERVER['HTTP_HOST'];
-        $log->url = $url;
+        $schema      = $_SERVER['HTTPS'] ? 'https' : 'http';
+        $log->host   = $schema.'://'.$_SERVER['HTTP_HOST'];
+        $log->url    = $url;
         $log->tstamp = time();
-        $log->ident = '';
+        $log->ident  = '';
         $log->save();
 
         return RedirectResponse::create($url);
 
     }
-    
+
     /**
-     * @Route("/qr-statistic", name="qr-serve")
+     * @Route("/qr-statistic", name="qr-serve-stats")
      */
     public function showStatisticAction()
     {
-        $qrAccess = QRModel::findall();
+        $qrAccess    = QRModel::findall();
         $returnArray = [];
         foreach ($qrAccess as $item) {
-            if(!array_key_exists($item->host,$returnArray)){
-                $returnArray[$item->host] = [ 'count' => 0];
+            if (!array_key_exists($item->host, $returnArray)) {
+                $returnArray[$item->host] = ['count' => 0];
             }
             $returnArray[$item->host]['count']++;
         }
         $returnValue = '';
         foreach ($returnArray as $key => $item) {
-            $returnValue .= $key . '=' .$item['count'] . '<br>';
+            $returnValue .= $key.'='.$item['count'].'<br>';
         }
 
         return new Response($returnValue);
