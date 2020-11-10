@@ -27,24 +27,26 @@ class QRController extends AbstractController
     }
 
     /**
-     * @Route("/qr/getsize/{size}/{url}", name="qr-get-with-size")
+     * @Route("/qr/getsize/{size}/{token}", name="qr-get-with-size")
      */
-    public function getQrPerSizeAction($url = 'magazin', $size = 945): Response
+    public function getQrPerSizeAction($token = 'magazin', $size = 945): Response
     {
+
         $host          = $_SERVER['HTTP_HOST'];
         $schema        = $_SERVER['HTTPS'] ? 'https' : 'http';
-        $url           = $schema.'://'.$host.'/qr/'.$url;
+        $url           = $schema.'://'.$host.'/qr/'.$token;
         $qrCodeFactory = new QrCodeFactory();
         $qrCode        = $qrCodeFactory->create($url, ['size' => $size]);
+
         $response      = new Response(
             $qrCode->writeString(), Response::HTTP_OK, [
                 'Content-Type' => $qrCode->getContentType(),
+                'Content-Disposition' => 'inline; filename="'.$host.'-'.$token.'.png"',
             ]
         );
 
         return $response;
     }
-
 
     /**
      * @Route("/qr/{url}", name="qr-serve")
@@ -65,7 +67,6 @@ class QRController extends AbstractController
         $log->save();
 
         return RedirectResponse::create($url);
-
     }
 
     /**
